@@ -50,6 +50,7 @@ while True:
 
     fgame.imprimir_texto(pantalla, ventana, "> Quitar con click/der", 15, formato_texto)
 
+
     fgame.imprimir_texto(pantalla, ventana, "> Sugerencias 1: Cañon ", 18, formato_texto)
 
     fgame.imprimir_texto(pantalla, ventana, "> Sugerencias 2: Palo ", 19, formato_texto)

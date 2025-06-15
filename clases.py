@@ -13,7 +13,7 @@ class Pantalla:
 
 class Celulas:
 
-    normas = ["Conway", "Maze"]
+    normas = ["Conway", "Maze", "Day&Night", "Coral"]
 
     def __init__(self, pantalla, n_cel = (100, 100), color_cel = (255, 255, 255)):
         self.nu_cel = n_cel

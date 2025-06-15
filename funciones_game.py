@@ -5,11 +5,13 @@ def pedir_num_cel():
 
             if num_cel.upper() == "G":
                 num_cel = 100
+                break
 
             num_cel = int(num_cel)
 
             if 50 <= num_cel <= 200:
                 break
+            print("Debe de ingresar un numero entero mayor a 50 y menor a 200.\n")
 
         except:
             print("Debe de ingresar un numero entero mayor a 50 y menor a 200.\n")
@@ -40,6 +42,7 @@ def pedir_col_cel():
 
         except:
             print("\nDebe de ingresar tres enteros que esten entre 0 y 255")
+
 
 
 def imprimir_texto(pantalla, ventana, str, num_texto, formato_texto, color = (255, 255, 255)):
@@ -77,6 +80,22 @@ def reglas(celula, estado_inicial, nuevo_estado, coordX, coordY, vecinos):
 
 
         elif estado_inicial[coordX][coordY] == True and (vecinos < 1 or vecinos > 5):
+            nuevo_estado[coordX][coordY] = 0
+
+    elif celula.regla == "Day&Night":
+        if estado_inicial[coordX][coordY] == False and (vecinos == 3 or vecinos >= 6):
+            nuevo_estado[coordX][coordY] = 1
+
+
+        elif estado_inicial[coordX][coordY] == True and (vecinos < 3 or vecinos == 5):
+            nuevo_estado[coordX][coordY] = 0
+
+    elif celula.regla == "Coral":
+        if estado_inicial[coordX][coordY] == False and (vecinos == 3):
+            nuevo_estado[coordX][coordY] = 1
+
+
+        elif estado_inicial[coordX][coordY] == True and (vecinos < 4):
             nuevo_estado[coordX][coordY] = 0
 
 
@@ -175,12 +194,32 @@ def eventos(pantalla, celula, matriz):
             elif pygame.key.name(evento.key) == "[3]" or pygame.key.name(evento.key) == "3":
                 sugerencia.estables(matriz, pantalla, celula)
 
+            elif pygame.key.name(evento.key) == "[4]" or pygame.key.name(evento.key) == "4":
+                sugerencia.penta(matriz, pantalla, celula)
+
+            elif pygame.key.name(evento.key) == "[5]" or pygame.key.name(evento.key) == "5":
+                sugerencia.crecimiento(matriz, pantalla, celula)
+
+            elif pygame.key.name(evento.key) == "[6]" or pygame.key.name(evento.key) == "6":
+                sugerencia.tech(matriz, pantalla, celula)
+
+            elif pygame.key.name(evento.key) == "[7]" or pygame.key.name(evento.key) == "7":
+                sugerencia.diez_inf(matriz, pantalla, celula)
+
+            elif pygame.key.name(evento.key) == "[8]" or pygame.key.name(evento.key) == "8":
+                sugerencia.cinco_inf(matriz, pantalla, celula)
+
+            elif pygame.key.name(evento.key) == "[9]" or pygame.key.name(evento.key) == "9":
+                sugerencia.inf_lin(matriz, pantalla, celula)
+
             #reglas
             elif pygame.key.name(evento.key) == "right":
                 celula.cambio_reglas_r()
 
             elif pygame.key.name(evento.key) == "left":
                 celula.cambio_reglas_l()
+
+
 
 
 

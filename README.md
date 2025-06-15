@@ -12,7 +12,7 @@ El Juego de la Vida es un **autómata celular** ideado por el matemático **John
 - Python 3.6 o superior
 - [Pygame](https://www.pygame.org/)
 
-## Instala Pygame ejecutando:
+## Ejecutar:
 
 ```bash
 pip install pygame

@@ -2,85 +2,72 @@ import time, pygame
 import funciones_game as fgame
 pygame.init()
 
-#tamaño de la pantalla
-size = width, height = 650, 650
 
-# numero de celulas.
-celulasX, celulasY = 100, 100
+pantalla = fgame.Pantalla()
 
-#tamaño de las celulas dependiendo el tamaño de la ventana
-dim_ce_X = (width)/celulasX
-dim_ce_Y = (height)/celulasY
+ventana = pygame.display.set_mode(pantalla.size) #ventana con tallaño
 
+pygame.display.set_caption("Juego de la vida")
 
-
-ventana = pygame.display.set_mode(size) #ventana con tallaño
-
-co_fondo = 25, 25, 25 #color
-
-ventana.fill(co_fondo) #dar el color del fondo
+ventana.fill(pantalla.color_fondo) #dar el color del fondo
 
 
 
 #estado de celulas, vivas = 1 y muertas = 0
-estados = [[0]*celulasX for i in range(celulasY)]
+estados = [[False]*pantalla.nu_cel[0] for i in range(pantalla.nu_cel[1])]
 co_estados = []
 
 
 fgame.canon(estados)
-
-#Pausar
-pausa = False
 
 
 #bucle
 while True:
 
     # crear copia de los estados llamada co_estados
-    co_estados = fgame.copia_matriz(co_estados, estados)
+    co_estados = fgame.copia_matriz(estados)
 
-    ventana.fill(co_fondo)
-    time.sleep(0.1)
+    ventana.fill(pantalla.color_fondo)
+
+    #velocidad, si el tiempo de espera es negativo da un aviso y no disminuye
+    try:
+        time.sleep(pantalla.speed)
+    except:
+        pantalla.speed += 0.01
+        print("Velocidad maxima alcanzada.")
+
+
 
     # Teclado
+    fgame.eventos(pantalla, co_estados)
 
-    for evento in pygame.event.get():
-        if evento.type == pygame.KEYDOWN:
-            pausa = not pausa
 
-        if evento.type == pygame.QUIT:
-            exit()
-
-        mouse = pygame.mouse.get_pressed()
-
-        if sum(mouse) > 0:
-            coordX, coordY = pygame.mouse.get_pos()
-            celdax, celday = int(coordX / dim_ce_X), int(coordY / dim_ce_Y)
-            co_estados[celday][celdax] = not mouse[2]
 
     # dibujar cuadricula
-    for x in range(0, celulasX):
-        for y in range(0, celulasY):
+    for x in range(pantalla.nu_cel[0]):
+        for y in range(pantalla.nu_cel[1]):
 
             """se crea la "cuadricula" donde estaran todas las celulas"""
-            poligono = fgame.cuadros(dim_ce_X, dim_ce_Y, x, y)
+            poligono = fgame.cuadros(pantalla.size_cel_x, pantalla.size_cel_y, x, y)
 
-            if co_estados[x][y] == 0:
+            if co_estados[x][y] == False:
                 pygame.draw.polygon(ventana, (130, 130, 130), poligono, 1)  # dibujar la cuadricula
 
 
             else:
-                pygame.draw.polygon(ventana, (255, 255, 255), poligono, 0)
+                pygame.draw.polygon(ventana, pantalla.color_cel, poligono, 0)
 
-            if not pausa:  # pausa o no
+
+
+            if not pantalla.pause:  # si no esta en pausa
 
                 # ver el numero de vecinos vivos.
-                num_vecinos = fgame.numero_vecinos(estados, celulasX, celulasY, x, y)
+                num_vecinos = fgame.numero_vecinos(pantalla, estados, pantalla.nu_cel[0], pantalla.nu_cel[1], x, y)
 
                 # reglas.
                 fgame.reglas(estados, co_estados, x, y, num_vecinos)
 
-    estados = fgame.copia_matriz(estados, co_estados)
+    estados = fgame.copia_matriz(co_estados)
 
     pygame.display.flip()
 

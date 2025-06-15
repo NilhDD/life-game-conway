@@ -1,8 +1,4 @@
 **Cambios:**
 
-1.   Creacion de clase y objeto, el cual corresponde a la pantalla, con atributos.
-2.   En la funcion copia_matiz ahora solo se necesita una matriz.
-3.   Los estados de las celulas ahora son True y False.
-4.   Ahora se puede cambiar el tipo de frontera, por lo cual se hicieron cambios en la forma de calcular los "vecinos".
-5.   Se agregaron mas eventos.
-6.   Se usaron excepciones para la "velocidad de las celulas."
+1.   Creacion de sugerencias
+2.   Explicacion de funciones

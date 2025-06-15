@@ -20,14 +20,12 @@ pip install pygame
 Clona este repositorio:
 
 ```bash
-Copiar código
 git clone https://github.com/NilhDD/life-game-conway.git
 cd life-game-conway
 ```
 Ejecuta el archivo principal:
 
 ```bash
-Copiar código
 python game.py
 ```
 
